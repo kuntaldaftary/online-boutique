@@ -37,7 +37,9 @@ jobs:
         working-directory: ./terraform
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          echo $GOOGLE_APPLICATION_CREDENTIALS
+          terraform init
         working-directory: ./terraform
 
       - name: Terraform Format Check
