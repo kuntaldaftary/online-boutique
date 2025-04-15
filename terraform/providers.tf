@@ -19,9 +19,23 @@ terraform {
       version = "6.26.0"
     }
   }
+  backend "gcs" {
+    bucket  = "my-terraform-state-bucket"
+    prefix  = "terraform/state"
+  }
 }
 
 provider "google" {
   project = var.gcp_project_id
   region  = var.region
+}
+
+provider "google-beta" {
+  project = var.gcp_project_id
+  region      = var.region
+}
+
+variable "gcp_project_id" {
+  description = "GCP Project ID"
+  type        = string
 }
