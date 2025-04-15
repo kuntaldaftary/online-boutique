@@ -30,6 +30,11 @@ jobs:
         with:
           credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
 
+      - name: Set up GCP credentials
+        run: |
+          echo "${{ secrets.GCP_CREDENTIALS }}" > $HOME/gcloud-key.json
+          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud-key.json
+
       - name: Terraform Init
         run: terraform init
         working-directory: ./terraform
