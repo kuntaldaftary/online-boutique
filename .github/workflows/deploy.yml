@@ -14,7 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 60  # Optional, set the timeout limit for the job
     env:
-      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}  # <- SET HERE
+      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }} 
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcloud-key.json 
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -32,9 +34,7 @@ jobs:
 
       - name: Set up GCP credentials
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS }}" > $HOME/gcloud-key.json
-          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/gcloud-key.json
-        working-directory: ./terraform
+          echo "${{ secrets.GCP_CREDENTIALS }}" > $GITHUB_WORKSPACE/gcloud-key.json
 
       - name: Terraform Init
         run: |
