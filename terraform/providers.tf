@@ -34,8 +34,3 @@ provider "google-beta" {
   project = var.gcp_project_id
   region      = var.region
 }
-
-variable "gcp_project_id" {
-  description = "GCP Project ID"
-  type        = string
-}
