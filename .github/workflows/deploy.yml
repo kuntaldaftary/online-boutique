@@ -66,6 +66,13 @@ jobs:
         run: terraform plan
         working-directory: ./terraform
 
+      - name: Install gke-gcloud-auth-plugin
+        run: |
+          curl -LO "https://storage.googleapis.com/gke-gcloud-auth-plugin/releases/latest/gke-gcloud-auth-plugin_linux_amd64"
+          chmod +x gke-gcloud-auth-plugin_linux_amd64
+          sudo mv gke-gcloud-auth-plugin_linux_amd64 /usr/local/bin/gke-gcloud-auth-plugin
+          which gke-gcloud-auth-plugin && gke-gcloud-auth-plugin --version
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
