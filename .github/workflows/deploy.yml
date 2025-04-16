@@ -38,7 +38,13 @@ jobs:
 
       - name: Validate that JSON is valid (quietly)
         run: |
-          jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' gcloud-key.json
+          echo "Checking if gcloud-key.json is valid..."
+          if jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' gcloud-key.json; then
+            echo "✅ JSON file is valid"
+          else
+            echo "❌ JSON file is invalid or missing required fields"
+            exit 1
+          fi
 
       - name: Terraform Init
         run: |
