@@ -40,7 +40,8 @@ jobs:
         run: |
           echo "Checking if gcloud-key.json is valid..."
           if jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' gcloud-key.json; then
-            echo "✅ JSON file is valid"
+            echo "✅ JSON file is validated"
+            wc -c gcloud-key.json
           else
             echo "❌ JSON file is invalid or missing required fields"
             exit 1
