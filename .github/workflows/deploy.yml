@@ -79,3 +79,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
         working-directory: ./terraform
+
+      - name: Check Kubernetes Pod Health
+        run: |
+          kubectl get pods -n default
+          kubectl wait --for=condition=ready pod --all -n default --timeout=120s
