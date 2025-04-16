@@ -34,7 +34,11 @@ jobs:
 
       - name: Set up GCP credentials
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS }}" > $GITHUB_WORKSPACE/gcloud-key.json
+          echo "${{ secrets.GCP_CREDENTIALS }}" > "$GITHUB_WORKSPACE/gcloud-key.json"
+
+      - name: Validate that JSON is valid (quietly)
+        run: |
+          jq empty "$GITHUB_WORKSPACE/gcloud-key.json"
 
       - name: Terraform Init
         run: |
