@@ -38,7 +38,7 @@ jobs:
 
       - name: Validate that JSON is valid (quietly)
         run: |
-          jq empty "$GITHUB_WORKSPACE/gcloud-key.json"
+          jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' gcloud-key.json
 
       - name: Terraform Init
         run: |
