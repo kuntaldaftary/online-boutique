@@ -34,7 +34,7 @@ jobs:
 
       - name: Set up GCP credentials
         run: |
-          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > "$GITHUB_WORKSPACE/gcloud-key.json"
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" | base64 --decode > "$GITHUB_WORKSPACE/gcloud-key.json"
 
       - name: Validate that JSON is valid (quietly)
         run: |
