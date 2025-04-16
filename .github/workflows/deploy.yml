@@ -34,12 +34,12 @@ jobs:
 
       - name: Set up GCP credentials
         run: |
-          echo "${{ secrets.GCP_CREDENTIALS }}" > "$GITHUB_WORKSPACE/gcloud-key.json"
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > "$GITHUB_WORKSPACE/gcloud-key.json"
 
       - name: Validate that JSON is valid (quietly)
         run: |
           echo "Checking if gcloud-key.json is valid..."
-          if jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' gcloud-key.json; then
+          if jq 'has("type") and has("project_id") and has("private_key_id") and has("client_email")' "$GITHUB_WORKSPACE/gcloud-key.json"; then
             echo "✅ JSON file is validated"
             wc -c gcloud-key.json
           else
