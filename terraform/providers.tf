@@ -20,7 +20,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket  = "my-terraform-state-bucket"
+    bucket  = "online-boutique-tf-state-bkt"
     prefix  = "terraform/state"
   }
 }
