@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 60  # Optional, set the timeout limit for the job
     env:
       TF_LOG: DEBUG
-      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }} 
+      TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }} 
       GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcloud-key.json 
 
     steps:
