@@ -2,15 +2,12 @@
 name: Terraform
 
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:  # This line allows manual triggering of the workflow
 
 
 jobs:
   terraform:
-    name: Terraform Plan and Apply
+    name: Terraform Destroy
     runs-on: ubuntu-latest
     timeout-minutes: 60  # Optional, set the timeout limit for the job
     env:
@@ -56,31 +53,7 @@ jobs:
           terraform init
         working-directory: ./terraform
 
-      - name: Terraform Format Check
-        run: |
-          terraform fmt
-          terraform fmt -check
+
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
         working-directory: ./terraform
-
-      - name: Terraform Plan
-        run: terraform plan
-        working-directory: ./terraform
-
-      - name: Install Google Cloud SDK and gke-gcloud-auth-plugin
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          install_components: 'gke-gcloud-auth-plugin'
-
-      - name: Authenticate GKE cluster for kubectl
-        run: gcloud container clusters get-credentials online-boutique --region us-central1 --project ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve
-        working-directory: ./terraform
-
-      - name: Check Kubernetes Pod Health
-        run: |
-          kubectl get pods -n default
-          kubectl wait --for=condition=ready pod --all -n default --timeout=130s
