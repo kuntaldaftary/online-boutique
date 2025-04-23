@@ -1,5 +1,5 @@
-# .github/workflows/terraform.yml
-name: Terraform
+# .github/workflows/destroy.yml
+name: Terraform Destroy
 
 on:
   workflow_dispatch:  # This line allows manual triggering of the workflow

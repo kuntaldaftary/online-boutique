@@ -1,5 +1,5 @@
-# .github/workflows/terraform.yml
-name: Terraform
+# .github/workflows/deploy.yml
+name: Terraform Deploy
 
 on:
   push:
