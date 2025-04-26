@@ -100,7 +100,7 @@ resource "google_container_cluster" "prs_gke_cluster" {
   location            = "us-central1"
   enable_autopilot    = true
   project             = var.project_id
-  deletion_protection = true
+  deletion_protection = false
   depends_on = [
     module.enable_google_apis
   ]
